@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 3</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="450,400 500,300 550,400"  fill="none" stroke="#FF0000"  stroke-width="8" stroke-linejoin="mitre" id="triang_red" />
+    <polygon points="450,400 500,300 550,400"  fill="none" stroke="#00FFFF"  stroke-width="8" stroke-linejoin="mitre" id="triang_cyan" />
+    <polygon points="450,400 500,300 550,400"  fill="none" stroke="#FFFFFF"  stroke-width="8" stroke-linejoin="mitre" id="triang_white" />
+
+    <animateTransform id="triang2_anim1" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="-4,-4" fill="freeze"
+                      begin="0s; triang2_anim8.end" dur="0.5s" />
+    <animateTransform id="triang2_anim2" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang2_anim1.end" dur="0.5s" />
+    <animateTransform id="triang2_anim3" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="4,4" fill="freeze"
+                      begin="triang2_anim2.end" dur="0.5s" />
+    <animateTransform id="triang2_anim4" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang2_anim3.end" dur="0.5s" />
+    <animateTransform id="triang2_anim5" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="4,-4" fill="freeze"
+                      begin="triang2_anim4.end" dur="0.5s" />
+    <animateTransform id="triang2_anim6" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang2_anim5.end" dur="0.5s" />
+    <animateTransform id="triang2_anim7" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="-4,4" fill="freeze"
+                      begin="triang2_anim6.end" dur="0.5s" />
+    <animateTransform id="triang2_anim8" xlink:href="#triang_red"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang2_anim7.end" dur="0.5s" />
+
+    <animateTransform id="triang_cyan_anim1" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="4,4" fill="freeze"
+                      begin="0s; triang_cyan_anim8.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim2" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang_cyan_anim1.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim3" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="-4,-4" fill="freeze"
+                      begin="triang_cyan_anim2.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim4" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang_cyan_anim3.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim5" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="-4,4" fill="freeze"
+                      begin="triang_cyan_anim4.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim6" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang_cyan_anim5.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim7" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="4,-4" fill="freeze"
+                      begin="triang_cyan_anim6.end" dur="0.5s" />
+    <animateTransform id="triang_cyan_anim8" xlink:href="#triang_cyan"
+                      attributeName="transform" type="translate" to="0,0" fill="freeze"
+                      begin="triang_cyan_anim7.end" dur="0.5s" />
+  </svg>
+
+  <script>
+  console.log("ping");
+  </script>
+</body>
+</html>
