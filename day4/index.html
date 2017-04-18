@@ -9,64 +9,78 @@
 </head>
 
 <body style="background: black;">
-  <svg width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="450,400 500,300 550,400"  fill="none" stroke="#FF0000"  stroke-width="8" stroke-linejoin="mitre" id="triang_red" />
-    <polygon points="450,400 500,300 550,400"  fill="none" stroke="#00FFFF"  stroke-width="8" stroke-linejoin="mitre" id="triang_cyan" />
-    <polygon points="450,400 500,300 550,400"  fill="none" stroke="#FFFFFF"  stroke-width="8" stroke-linejoin="mitre" id="triang_white" />
-
-    <animateTransform id="triang2_anim1" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="-4,-4" fill="freeze"
-                      begin="0s; triang2_anim8.end" dur="0.5s" />
-    <animateTransform id="triang2_anim2" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang2_anim1.end" dur="0.5s" />
-    <animateTransform id="triang2_anim3" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="4,4" fill="freeze"
-                      begin="triang2_anim2.end" dur="0.5s" />
-    <animateTransform id="triang2_anim4" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang2_anim3.end" dur="0.5s" />
-    <animateTransform id="triang2_anim5" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="4,-4" fill="freeze"
-                      begin="triang2_anim4.end" dur="0.5s" />
-    <animateTransform id="triang2_anim6" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang2_anim5.end" dur="0.5s" />
-    <animateTransform id="triang2_anim7" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="-4,4" fill="freeze"
-                      begin="triang2_anim6.end" dur="0.5s" />
-    <animateTransform id="triang2_anim8" xlink:href="#triang_red"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang2_anim7.end" dur="0.5s" />
-
-    <animateTransform id="triang_cyan_anim1" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="4,4" fill="freeze"
-                      begin="0s; triang_cyan_anim8.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim2" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang_cyan_anim1.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim3" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="-4,-4" fill="freeze"
-                      begin="triang_cyan_anim2.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim4" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang_cyan_anim3.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim5" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="-4,4" fill="freeze"
-                      begin="triang_cyan_anim4.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim6" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang_cyan_anim5.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim7" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="4,-4" fill="freeze"
-                      begin="triang_cyan_anim6.end" dur="0.5s" />
-    <animateTransform id="triang_cyan_anim8" xlink:href="#triang_cyan"
-                      attributeName="transform" type="translate" to="0,0" fill="freeze"
-                      begin="triang_cyan_anim7.end" dur="0.5s" />
-  </svg>
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg"></svg>
 
   <script>
-  console.log("ping");
+    console.log("ping");
+
+    var add_triang = function(id, points, color) {
+      var triangle = document.createElementNS("http://www.w3.org/2000/svg","polygon");
+
+      triangle.setAttribute("id", id);
+      triangle.setAttribute("points", points)
+      triangle.setAttribute("stroke", color)
+
+      triangle.setAttribute("fill", "none")
+      triangle.setAttribute("stroke-width", "8")
+      triangle.setAttribute("stroke-linejoin", "mitre")
+
+      document.getElementById("root_svg").appendChild(triangle);
+
+      return triangle;
+    }
+
+    var add_translate_animation = function(id, target, translation, begin) {
+      var animation = document.createElementNS("http://www.w3.org/2000/svg","animateTransform");
+
+      animation.setAttribute("id", id);
+      animation.setAttribute("href", target);
+
+      animation.setAttribute("attributeName", "transform");
+      animation.setAttribute("type", "translate");
+      animation.setAttribute("to", translation);
+
+      animation.setAttribute("begin", begin);
+      animation.setAttribute("dur", "0.5s");
+      animation.setAttribute("fill", "freeze");
+
+      document.getElementById("root_svg").appendChild(animation);
+
+      return animation;
+    }
+
+    var triang1_pos = "450,400 500,300 550,400";
+    var triang2_pos = "650,400 700,300 750,400";
+
+    add_triang("triang1_red", triang1_pos, "#FF0000");
+    add_triang("triang1_cyan", triang1_pos, "#00FFFF");
+    add_triang("triang1_white", triang1_pos, "#FFFFFF");
+
+    add_triang("triang2_red", triang2_pos, "#FF0000");
+    add_triang("triang2_cyan", triang2_pos, "#00FFFF");
+    add_triang("triang2_white", triang2_pos, "#FFFFFF");
+
+    add_translate_animation("triang1_red_anim1", "#triang1_red", "-4,-4", "0s; triang1_red_anim4.end");
+    add_translate_animation("triang1_red_anim2", "#triang1_red", "0,0",   "triang1_red_anim1.end");
+    add_translate_animation("triang1_red_anim3", "#triang1_red", "4,4",   "triang1_red_anim2.end");
+    add_translate_animation("triang1_red_anim4", "#triang1_red", "0,0",   "triang1_red_anim3.end");
+
+    add_translate_animation("triang1_cyan_anim1", "#triang1_cyan", "4,4",   "0s; triang1_cyan_anim4.end");
+    add_translate_animation("triang1_cyan_anim2", "#triang1_cyan", "0,0",   "triang1_cyan_anim1.end");
+    add_translate_animation("triang1_cyan_anim3", "#triang1_cyan", "-4,-4", "triang1_cyan_anim2.end");
+    add_translate_animation("triang1_cyan_anim4", "#triang1_cyan", "0,0",   "triang1_cyan_anim3.end");
+
+    add_translate_animation("triang2_red_anim1", "#triang2_red", "4,-4",  "0s; triang2_red_anim4.end");
+    add_translate_animation("triang2_red_anim2", "#triang2_red", "0,0",   "triang2_red_anim1.end");
+    add_translate_animation("triang2_red_anim3", "#triang2_red", "-4,4",  "triang2_red_anim2.end");
+    add_translate_animation("triang2_red_anim4", "#triang2_red", "0,0",   "triang2_red_anim3.end");
+
+    add_translate_animation("triang2_cyan_anim1", "#triang2_cyan", "-4,4",  "0s; triang2_cyan_anim4.end");
+    add_translate_animation("triang2_cyan_anim2", "#triang2_cyan", "0,0",   "triang2_cyan_anim1.end");
+    add_translate_animation("triang2_cyan_anim3", "#triang2_cyan", "4,-4",  "triang2_cyan_anim2.end");
+    add_translate_animation("triang2_cyan_anim4", "#triang2_cyan", "0,0",   "triang2_cyan_anim3.end");
+
+    console.log("pong");
   </script>
 </body>
 </html>
