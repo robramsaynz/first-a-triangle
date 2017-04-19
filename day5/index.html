@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 5</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+
+    <rect x="500" y="250" width="30" height="100" fill="white">
+       <animate attributeType="CSS" attributeName="x" to="510" id="anim1"
+                dur="0.5s" fill="freeze" begin="0s; anim1.begin + 1s" />
+       <animate attributeType="CSS" attributeName="x" to="500"
+                dur="0.5s" fill="freeze" begin="0s; anim1.begin + 0.5s" />
+
+       <animate attributeType="CSS" attributeName="y" to="260" id="anim1"
+                dur="0.5s" fill="freeze" begin="0s; anim1.begin + 1s" />
+       <animate attributeType="CSS" attributeName="y" to="250"
+                dur="0.5s" fill="freeze" begin="0s; anim1.begin + 0.5s" />
+
+       <animate attributeType="CSS" attributeName="width" to="20" id="anim2"
+                dur="0.5s" fill="freeze" begin="0s; anim2.begin + 1s" />
+       <animate attributeType="CSS" attributeName="width" to="30"
+                dur="0.5s" fill="freeze" begin="0s; anim2.begin + 0.5s" />
+    </rect>
+  </svg>
+</body>
+</html>
