@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 6</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+
+  <script>
+    console.log("ping");
+
+    var add_triang = function(id, points, color) {
+      var triangle = document.createElementNS("http://www.w3.org/2000/svg","polygon");
+
+      triangle.setAttribute("id", id);
+      triangle.setAttribute("points", points)
+      triangle.setAttribute("stroke", color)
+
+      triangle.setAttribute("fill", "none")
+      triangle.setAttribute("stroke-width", "8")
+      triangle.setAttribute("stroke-linejoin", "mitre")
+
+      document.getElementById("root_svg").appendChild(triangle);
+
+      return triangle;
+    }
+
+    var x_center = Math.random()*800 + 100;
+    var y_center = Math.random()*600 + 100;
+
+    var half_width = 100/2;
+    var half_height = 100/2;
+
+    var position = ""  +(x_center-half_width) + "," + (y_center+half_width)
+                   +" "+(x_center)            + "," + (y_center-half_width)
+                   +" "+(x_center+half_width) + "," + (y_center+half_width);
+
+    add_triang("triang1", position, "white");
+  </script>
+</body>
+</html>
