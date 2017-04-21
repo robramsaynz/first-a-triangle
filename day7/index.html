@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 7</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+
+    <rect id="rect1" x="500" y="250" width="30" height="100" fill="white">
+    </rect>
+  </svg>
+
+  <script>
+    var add_animate = function(id, attribute, [value1, value2], duration) {
+      var animate1 = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+
+      animate1.setAttribute("id", id);
+
+      animate1.setAttribute("attributeType", "CSS");
+      animate1.setAttribute("attributeName", attribute)
+      animate1.setAttribute("to", value1)
+
+      animate1.setAttribute("dur", duration)
+      animate1.setAttribute("begin", "0s; "+id+".begin +"+ 2*duration +"s")
+      animate1.setAttribute("fill", "freeze")
+
+      var animate2 = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+
+      animate2.setAttribute("attributeType", "CSS");
+      animate2.setAttribute("attributeName", attribute)
+      animate2.setAttribute("to", value2)
+
+      animate2.setAttribute("dur", duration)
+      animate2.setAttribute("begin", id+".begin +"+ duration +"s")
+      animate2.setAttribute("fill", "freeze")
+
+      document.getElementById("rect1").appendChild(animate1);
+      document.getElementById("rect1").appendChild(animate2);
+
+      return [animate1, animate2];
+    }
+
+    var x_start = Math.random()*20 + 500;
+    var y_start = Math.random()*20 + 250;
+    var width_start = Math.random()*10 + 20;
+
+    var x_offset = Math.random()*20;
+    var y_offset = Math.random()*20;
+    var width_offset = Math.random()*20;
+
+    add_animate("x_anim", "x", [(x_start+x_offset), x_start], 0.5);
+    add_animate("y_anim", "y", [(y_start+y_offset), y_start], 0.5);
+    add_animate("width_anim", "width", [(width_start+width_offset), width_start], 0.5);
+  </script>
+</body>
+</html>
