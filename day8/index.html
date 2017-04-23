@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 8</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+  <script>
+    var hexagon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+
+    // For how this is calculated see:
+    //
+    // http://mathcentral.uregina.ca/qq/database/qq.02.06/trevor.1.5.gif
+    // http://image.tutorvista.com/cms/images/38/constructing-regular-hexagon.jpg
+
+    x_center = 450;
+    y_center = 350;
+
+    y_top = y_center - 86.6;
+    y_middle = y_center;
+    y_bottom = y_center + 86.6;
+
+    x_left_outer = x_center - 100;
+    x_left_inner = x_center - 50;
+    x_right_inner = x_center + 50;
+    x_right_outer = x_center + 100;
+
+    hexagon.setAttribute("points",
+      `${x_left_inner},${y_top} ${x_right_inner},${y_top} `
+      +`${x_right_outer},${y_middle} `
+      +`${x_right_inner},${y_bottom} ${x_left_inner},${y_bottom} `
+      +`${x_left_outer},${y_middle}`
+    );
+    hexagon.setAttribute("fill", "none");
+    hexagon.setAttribute("stroke", "white");
+    hexagon.setAttribute("stroke-width", "8");
+    hexagon.setAttribute("stroke-linejoin", "mitre");
+
+    document.getElementById("root_svg").append(hexagon);
+  </script>
+</body>
+</html>
