@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 9</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+  <script>
+    var add_animate = function(id, attribute, [value1, value2], duration, pause) {
+      var move1 = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+
+      move1.setAttribute("id", id);
+
+      move1.setAttribute("attributeName", "transform");
+      move1.setAttribute("attributeType", "XML");
+
+      move1.setAttribute("type", "rotate");
+      move1.setAttribute("to", value1)
+
+      move1.setAttribute("dur", duration)
+      move1.setAttribute("begin", "0s; "+id+".begin +"+ (2*duration+2*pause) +"s")
+      move1.setAttribute("fill", "freeze")
+
+      var move2 = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+
+      // move2.setAttribute("attributeType", "CSS");
+      move2.setAttribute("attributeName", "transform");
+      move2.setAttribute("attributeType", "XML");
+
+      move2.setAttribute("type", "rotate");
+      move2.setAttribute("to", value2)
+
+      move2.setAttribute("dur", duration)
+      move2.setAttribute("begin", id+".begin +"+ (duration+pause) +"s")
+      move2.setAttribute("fill", "freeze")
+
+      return [move1, move2];
+    }
+
+    var add_hexagon = function([x_center,y_center]) {
+      var hexagon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      // For how this is calculated see:
+      //
+      // http://mathcentral.uregina.ca/qq/database/qq.02.06/trevor.1.5.gif
+      // http://image.tutorvista.com/cms/images/38/constructing-regular-hexagon.jpg
+
+      y_top = y_center - 86.6;
+      y_middle = y_center;
+      y_bottom = y_center + 86.6;
+
+      x_left_outer = x_center - 100;
+      x_left_inner = x_center - 50;
+      x_right_inner = x_center + 50;
+      x_right_outer = x_center + 100;
+
+      hexagon.setAttribute("points",
+        `${x_left_inner},${y_top} ${x_right_inner},${y_top} `
+        +`${x_right_outer},${y_middle} `
+        +`${x_right_inner},${y_bottom} ${x_left_inner},${y_bottom} `
+        +`${x_left_outer},${y_middle}`
+      );
+      hexagon.setAttribute("fill", "none");
+      hexagon.setAttribute("stroke", "white");
+      hexagon.setAttribute("stroke-width", "8");
+      hexagon.setAttribute("stroke-linejoin", "mitre");
+
+      return hexagon;
+    }
+
+    var hexagon = add_hexagon([450, 350]);
+    var animations = add_animate("fnurg", "rotation", ["0 450 350", "180 450 350"], 0.7, 0.2);
+
+    hexagon.append(animations[0]);
+    hexagon.append(animations[1]);
+
+    document.getElementById("root_svg").append(hexagon);
+
+
+  </script>
+</body>
+</html>
