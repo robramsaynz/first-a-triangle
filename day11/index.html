@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 11</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+  <script>
+    var create_animation = function(property) {
+      var elem;
+
+      if (property === "translate") {
+        elem = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+
+        elem.setAttribute("attributeName", "transform");
+        elem.setAttribute("attributeType", "XML");
+        elem.setAttribute("type", property);
+      } else {
+        elem = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+
+        elem.setAttribute("attributeType", "CSS");
+        elem.setAttribute("attributeName", property);
+      }
+
+      return elem;
+    }
+
+    var add_animate = function(id, property, [value1, value2], duration, pause) {
+      var move = create_animation(property);
+      move.setAttribute("to", value1);
+      move.setAttribute("dur", duration);
+      move.setAttribute("begin", "0s; "+id+".begin +"+ (duration+pause) +"s");
+      move.setAttribute("fill", "remove");
+      move.setAttribute("id", id);
+
+      return move.outerHTML;
+    }
+
+    var add_symetric_animate = function(id, property, [value1, value2], duration, pause) {
+      var move1 = create_animation(property);
+      move1.setAttribute("to", value1);
+      move1.setAttribute("dur", duration);
+      move1.setAttribute("begin", "0s; "+id+".begin +"+ (2*duration+2*pause) +"s");
+      move1.setAttribute("fill", "freeze");
+      move1.setAttribute("id", id);
+
+      var move2 = create_animation(property);
+      move2.setAttribute("to", value2);
+      move2.setAttribute("dur", duration);
+      move2.setAttribute("begin", id+".begin +"+ (duration+pause) +"s");
+      move2.setAttribute("fill", "freeze");
+
+      return move1.outerHTML + move2.outerHTML;
+    }
+
+    var create_line = function() {
+      var line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+
+      line.setAttribute("fill", "none");
+      line.setAttribute("stroke", "white");
+      line.setAttribute("stroke-width", "8");
+      line.setAttribute("stroke-linecap", "round");
+
+      return line;
+    }
+
+
+    var add_hexagon = function([x_center,y_center]) {
+      // For how this is calculated see:
+      //
+      // http://mathcentral.uregina.ca/qq/database/qq.02.06/trevor.1.5.gif
+      // http://image.tutorvista.com/cms/images/38/constructing-regular-hexagon.jpg
+
+      y_top = y_center - 86.6;
+      y_middle = y_center;
+      y_bottom = y_center + 86.6;
+
+      x_left_outer = x_center - 100;
+      x_left_inner = x_center - 50;
+      x_right_inner = x_center + 50;
+      x_right_outer = x_center + 100;
+
+      var line1, line2, line3, line4, line5, line6;
+
+      line1 = create_line();
+      line1.setAttribute("points", `${x_left_inner},${y_top} ${x_right_inner},${y_top}`);
+
+      line2 = create_line();
+      line2.setAttribute("points", `${x_right_inner},${y_top} ${x_right_outer},${y_middle}`);
+
+      line3 = create_line();
+      line3.setAttribute("points", `${x_right_outer},${y_middle} ${x_right_inner},${y_bottom}`);
+
+      line4 = create_line();
+      line4.setAttribute("points", `${x_right_inner},${y_bottom} ${x_left_inner},${y_bottom}`);
+
+      line5 = create_line();
+      line5.setAttribute("points", `${x_left_inner},${y_bottom} ${x_left_outer},${y_middle}`);
+
+      line6 = create_line();
+      line6.setAttribute("points", `${x_left_outer},${y_middle} ${x_left_inner},${y_top}`);
+
+      return [line1, line2, line3, line4, line5, line6];
+    }
+
+    var [line1, line2, line3, line4, line5, line6] = add_hexagon([450, 350]);
+
+    line1.innerHTML = add_animate("anim_11", "translate", ["0      -30",    "0 0"], 0.7, 1.1);
+    line2.innerHTML = add_animate("anim_12", "translate", ["21.21  -21.21", "0 0"], 0.7, 1.1);
+    line3.innerHTML = add_animate("anim_13", "translate", ["21.21   21.21", "0 0"], 0.7, 1.1);
+    line4.innerHTML = add_animate("anim_14", "translate", ["0       30",    "0 0"], 0.7, 1.1);
+    line5.innerHTML = add_animate("anim_15", "translate", ["-21.21  21.21", "0 0"], 0.7, 1.1);
+    line6.innerHTML = add_animate("anim_16", "translate", ["-21.21 -21.21", "0 0"], 0.7, 1.1);
+
+    line1.innerHTML += add_symetric_animate("anim_21", "opacity", ["0", "1"], 0.7, 0.2);
+    line2.innerHTML += add_symetric_animate("anim_22", "opacity", ["0", "1"], 0.7, 0.2);
+    line3.innerHTML += add_symetric_animate("anim_23", "opacity", ["0", "1"], 0.7, 0.2);
+    line4.innerHTML += add_symetric_animate("anim_24", "opacity", ["0", "1"], 0.7, 0.2);
+    line5.innerHTML += add_symetric_animate("anim_25", "opacity", ["0", "1"], 0.7, 0.2);
+    line6.innerHTML += add_symetric_animate("anim_26", "opacity", ["0", "1"], 0.7, 0.2);
+
+    document.getElementById("root_svg").innerHTML =
+      line1.outerHTML + line2.outerHTML + line3.outerHTML
+      + line4.outerHTML + line5.outerHTML + line6.outerHTML;
+  </script>
+</body>
+</html>
