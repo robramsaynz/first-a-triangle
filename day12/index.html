@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<title>First a Triangle - day 12</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style> </style>
+</head>
+
+<body style="background: black;">
+  <svg id="root_svg" width="1000" height="1000" viewPort="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+
+  <script>
+    var add_triang = function(id, [x, y], color) {
+      var triangle = document.createElementNS("http://www.w3.org/2000/svg","polygon");
+
+      var width = 50;
+      var height = 43.3012;
+      var points  = `${x-width},${y+height} ${x},${y-height} ${x+width},${y+height}`;
+
+      triangle.setAttribute("id", id);
+      triangle.setAttribute("points", points);
+      triangle.setAttribute("stroke", color)
+
+      triangle.setAttribute("fill", "none")
+      triangle.setAttribute("stroke-width", "8")
+      triangle.setAttribute("stroke-linejoin", "mitre")
+
+      return triangle;
+    }
+
+    var create_animation = function(property) {
+      var elem;
+
+      if (property === "translate" || property === "rotate" ) {
+        elem = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+
+        elem.setAttribute("attributeName", "transform");
+        elem.setAttribute("attributeType", "XML");
+        elem.setAttribute("type", property);
+      } else {
+        elem = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+
+        elem.setAttribute("attributeType", "CSS");
+        elem.setAttribute("attributeName", property);
+      }
+
+      return elem;
+    }
+
+    var add_animate = function(id, property, [value1, value2], duration, pause) {
+      var move = create_animation(property);
+      move.setAttribute("from", value1);
+      move.setAttribute("to", value2);
+      move.setAttribute("dur", duration);
+      move.setAttribute("begin", "0s; "+id+".begin +"+ (duration+pause) +"s");
+      move.setAttribute("fill", "remove");
+      move.setAttribute("id", id);
+
+      return move.outerHTML;
+    }
+
+    var add_symetric_animate = function(id, property, [value1, value2], duration, pause) {
+      var move1 = create_animation(property);
+      move1.setAttribute("to", value1);
+      move1.setAttribute("dur", duration);
+      move1.setAttribute("begin", "0s; "+id+".begin +"+ (2*duration+2*pause) +"s");
+      move1.setAttribute("fill", "freeze");
+      move1.setAttribute("id", id);
+
+      var move2 = create_animation(property);
+      move2.setAttribute("to", value2);
+      move2.setAttribute("dur", duration);
+      move2.setAttribute("begin", id+".begin +"+ (duration+pause) +"s");
+      move2.setAttribute("fill", "freeze");
+
+      return move1.outerHTML + move2.outerHTML;
+    }
+
+    var triangle = add_triang("triangle", [500, 350], "#FFFFFF");
+    triangle.innerHTML = add_animate("anim1", "rotate", ["0 500 366", "360 500 366"], 0.5, 0);
+
+    document.getElementById('root_svg').innerHTML = triangle.outerHTML;
+  </script>
+</body>
+</html>
